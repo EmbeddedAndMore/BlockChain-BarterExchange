@@ -6,15 +6,16 @@ import { useStateContext } from '../context';
 import { logo, menu, search, thirdweb } from '../assets';
 import { navlinks } from '../constants';
 import { OfferContext } from "../App"
-import { OfferRow } from '../components'
+import { OfferRow, Loader } from '../components'
 
 
 const AllOffers = () => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const { connect, contract, address, getOffers } = useStateContext();
+    const { connect, contract, address, getOffers, acceptExchange, requestForWithdraw } = useStateContext();
     const { otherAsset, setOtherAsset, ownAsset, setOwnAsset } = useContext(OfferContext);
     const [offers, setOffers] = useState([]);
+    const navigate = useNavigate();
 
     const requestExchange = async (to, ownOffer, requestedOffer) => {
         await requestForExchange({ to, ownOffer, requestedOffer })
@@ -37,9 +38,26 @@ const AllOffers = () => {
     }, [address, contract])
 
 
+    const withdrawExchange = async (eId) => {
+        setIsLoading(true);
+        await requestForWithdraw(eId)
+        console.log("loading finished")
+        setIsLoading(false);
+        console.log("loading finished after")
+        navigate('/offers');
+    };
+
+    const accepExchangeRequest = async (eId) => {
+        setIsLoading(true);
+        await acceptExchange(eId)
+        setIsLoading(false);
+        navigate('/offers');
+    };
 
     return (
         <div>
+            {isLoading && <Loader />}
+
             {offers.length == 0 &&
                 <div className="flex justify-center items-center bg-[#1c1c24] rounded-[20px]  py-4 mt-12">
                     <div className=''>
@@ -55,14 +73,12 @@ const AllOffers = () => {
 
                         <OfferRow
                             key={uuidv4()}
-                            offer={offer} />
-
+                            offer={offer}
+                            handleAccept={() => accepExchangeRequest(offer.id)}
+                            handleWithdraw={() => withdrawExchange(offer.id)} />
                     )
                 }
             </div>
-
-
-
         </div>
     )
 }

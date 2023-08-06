@@ -22,6 +22,7 @@ const Sidebar = () => {
   const disconnect = useDisconnect();
   const [isActive, setIsActive] = useState('dashboard');
 
+
   return (
     <div className="flex justify-between items-center flex-col sticky top-5 h-[93vh]">
       <Link to="/">

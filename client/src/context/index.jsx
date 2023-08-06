@@ -7,7 +7,7 @@ import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0xee153B55De84F01D6C9150a6a390e9024BE21aAd');
+  const { contract } = useContract('0xbF2100F350e51934B9Da82651a2C8188b106C5E1');
   const { mutateAsync: addAsset } = useContractWrite(contract, 'addAsset');
   const { mutateAsync: deleteAsset } = useContractWrite(contract, 'deleteAsset');
   const { mutateAsync: getAssets } = useContractWrite(contract, 'getAssets');
@@ -105,7 +105,7 @@ export const StateContextProvider = ({ children }) => {
       const data_with_id = data.map((asset, i) => ({
         id: i,
         ...asset
-      }));
+      })).filter(asset => asset.isInExchangeProcess === false && asset.isAvailable === true);
       console.log("Assets loaded succesfully.", data)
       return data_with_id;
     } catch (error) {

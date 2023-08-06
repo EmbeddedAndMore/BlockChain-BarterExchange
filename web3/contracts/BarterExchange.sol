@@ -103,11 +103,8 @@ contract BarterExchange {
         pex.isConfirmed = false; // true if confirmed.
 
         // Assets will be not be availabe for request until when it is withdrawn.
-        Asset storage offAsset = assets[offeredAsset];
-        offAsset.isInExchangeProcess = true;
-
-        Asset storage reqAsset = assets[offeredAsset];
-        reqAsset.isInExchangeProcess = true;
+        assets[offeredAsset].isInExchangeProcess = true;
+        assets[requestedAsset].isInExchangeProcess = true;
 
         numberOfProposedExchanges = numberOfProposedExchanges + 1;
         return numberOfProposedExchanges - 1;
@@ -120,11 +117,8 @@ contract BarterExchange {
         pex.isConfirmed = false;
 
         // Assets will be availables again.
-        Asset storage offAsset = assets[pex.offeredAsset];
-        offAsset.isInExchangeProcess = false;
-
-        Asset storage reqAsset = assets[pex.requestedAsset];
-        reqAsset.isInExchangeProcess = false;
+        assets[pex.offeredAsset].isInExchangeProcess = false;
+        assets[pex.requestedAsset].isInExchangeProcess = false;
     }
 
     function confirmExchange(uint256 idOfExchange) public {
