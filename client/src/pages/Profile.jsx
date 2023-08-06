@@ -33,7 +33,7 @@ const Profile = () => {
 
   return (
     <DisplayAssets
-      title="All Services and Products"
+      title="My Services and Products"
       isLoading={isLoading}
       assets={assetss}
       from="profile"

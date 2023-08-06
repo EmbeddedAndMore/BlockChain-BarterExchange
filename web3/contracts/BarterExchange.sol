@@ -152,7 +152,7 @@ contract BarterExchange {
         assets[pex.requestedAsset].owner = pex.from;
 
         assets[pex.offeredAsset].isInExchangeProcess = false;
-        assets[pex.offeredAsset].isInExchangeProcess = false;
+        assets[pex.requestedAsset].isInExchangeProcess = false;
     }
 
     function getOffers() public view returns (ProposedExchange[] memory) {
