@@ -7,7 +7,7 @@ import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0xa75278272d68951D4C8cBFaBD4fCC6B046b3e459');
+  const { contract } = useContract('0xee153B55De84F01D6C9150a6a390e9024BE21aAd');
   const { mutateAsync: addAsset } = useContractWrite(contract, 'addAsset');
   const { mutateAsync: deleteAsset } = useContractWrite(contract, 'deleteAsset');
   const { mutateAsync: getAssets } = useContractWrite(contract, 'getAssets');
@@ -65,11 +65,11 @@ export const StateContextProvider = ({ children }) => {
     }
   }
 
-  const requestForExchange = async (to, offeredAssetId, requestedAssetId) => {
+  const requestForExchange = async (to, offeredAssetId, requestedAssetId, offeredAssetName, requestedAssetName) => {
     try {
       const data = await proposeExchange({
         args: [
-          to, offeredAssetId, requestedAssetId
+          to, offeredAssetId, requestedAssetId, offeredAssetName, requestedAssetName
         ],
       });
 
@@ -101,26 +101,45 @@ export const StateContextProvider = ({ children }) => {
           owner
         ]
       });
+
+      const data_with_id = data.map((asset, i) => ({
+        id: i,
+        ...asset
+      }));
       console.log("Assets loaded succesfully.", data)
-      return data;
+      return data_with_id;
     } catch (error) {
       console.log("Could not fetch assets", error)
     }
   }
 
   const getOffers = async () => {
-    const offers = await contract.call('getOffers');
+    try {
+      const offers = await contract.call('getOffers',);
 
-    const parsedOffers = offers.map((offer, i) => ({
-      from: offer.from,
-      to: offer.to,
-      offeredAsset: offer.offeredAsset,
-      requestedAsset: offer.requestedAsset,
-      isWithdrawn: offer.isWithdrawn,
-      isConfirmed: offer.isConfirmed,
-      eId: i
-    }));
-    return parsedOffers;
+      var filtered_offers = []
+      for (var i = 0; i < offers.length; i++) {
+        var offer = offers[i]
+        if (offer.from === address || offer.to === address) {
+          filtered_offers.push({
+            from: offer.from,
+            to: offer.to,
+            offeredAsset: offer.offeredAsset,
+            requestedAsset: offer.requestedAsset,
+            offeredAssetName: offer.offeredAssetName,
+            requestedAssetName: offer.requestedAssetName,
+            isWithdrawn: offer.isWithdrawn,
+            isConfirmed: offer.isConfirmed,
+            id: i
+          })
+        }
+      }
+
+      console.log("Offers loaded succesfully.", filtered_offers)
+      return filtered_offers;
+    } catch (error) {
+      console.log("Could not fetch offers", error)
+    }
   }
 
   return (

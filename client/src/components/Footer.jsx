@@ -13,13 +13,13 @@ const Footer = () => {
     const { connect, address, requestForExchange } = useStateContext();
     const { otherAsset, setOtherAsset, ownAsset, setOwnAsset } = useContext(OfferContext);
 
-    const requestExchange = async (to, ownOffer, requestedOffer) => {
-        await requestForExchange({ to, ownOffer, requestedOffer })
+    const requestExchange = async (to, ownOffer, requestedOffer, ownOfferName, requestedOfferName) => {
+        await requestForExchange(to, ownOffer, requestedOffer, ownOfferName, requestedOfferName)
     }
 
 
     return (
-        <div className="flex justify-center items-center bg-[#1c1c24] rounded-[20px]  py-4 mt-12">
+        <div className="flex justify-center items-center bg-[#1c1c24] rounded-[20px] py-4 mt-12">
             <div>
                 <span className="font-epilogue font-bold text-[20px] text-white ">Other: </span>
                 <span className="font-epilogue text-[20px] text-white truncate">{otherAsset?.title}</span>
@@ -34,7 +34,7 @@ const Footer = () => {
                     handleClick={() => {
                         if (address) {
                             if (otherAsset !== null && ownAsset != null)
-                                requestExchange({ otherAsset.owner, ownAsset, other })
+                                requestExchange(otherAsset.owner, ownAsset.id, otherAsset.id, ownAsset.name, otherAsset.name)
                         }
                         else connect();
                     }}

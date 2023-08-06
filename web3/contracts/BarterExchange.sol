@@ -19,6 +19,8 @@ contract BarterExchange {
         address to;
         uint256 offeredAsset; // ID of offered Asset
         uint256 requestedAsset; // ID of requested Asset
+        string offeredAssetName;
+        string requestedAssetName;
         bool isWithdrawn;
         bool isConfirmed;
     }
@@ -71,7 +73,9 @@ contract BarterExchange {
     function proposeExchange(
         address to,
         uint256 offeredAsset,
-        uint256 requestedAsset
+        uint256 requestedAsset,
+        string memory offeredAssetName,
+        string memory requestedAssetName
     ) public returns (uint256) {
         require(
             assets[offeredAsset].isAvailable,
@@ -93,6 +97,8 @@ contract BarterExchange {
         pex.to = to;
         pex.offeredAsset = offeredAsset;
         pex.requestedAsset = requestedAsset;
+        pex.offeredAssetName = offeredAssetName;
+        pex.requestedAssetName = requestedAssetName;
         pex.isWithdrawn = false; // true if it is withdrawn. Withdrawn exchanges will considered to be deleted
         pex.isConfirmed = false; // true if confirmed.
 
@@ -155,21 +161,13 @@ contract BarterExchange {
         assets[pex.offeredAsset].isInExchangeProcess = false;
     }
 
-    function getOffers(
-        address partyAddress
-    ) public view returns (ProposedExchange[] memory) {
+    function getOffers() public view returns (ProposedExchange[] memory) {
         // this function might get called from both sides of a deal.
         ProposedExchange[] memory exchanges = new ProposedExchange[](
             numberOfProposedExchanges
         );
-        uint256 currentIndex = 0;
         for (uint256 i = 0; i < numberOfProposedExchanges; i++) {
-            if (
-                proposedExchanges[i].from == partyAddress ||
-                proposedExchanges[i].to == partyAddress
-            ) {
-                exchanges[currentIndex] = proposedExchanges[i];
-            }
+            exchanges[i] = proposedExchanges[i];
         }
         return exchanges;
     }

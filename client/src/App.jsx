@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Sidebar, Navbar, Footer } from './components';
-import { AssetDetails, CreateAsset, Home, Profile } from './pages';
+import { AssetDetails, CreateAsset, Home, Profile, AllOffers } from './pages';
 import { useStateContext } from './context'
 
 
@@ -37,6 +37,7 @@ const App = () => {
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/offers" element={<AllOffers />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/create-asset" element={<CreateAsset />} />
               <Route path="/asset-details/:id" element={<AssetDetails />} />

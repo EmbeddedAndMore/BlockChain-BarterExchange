@@ -15,7 +15,7 @@ const Home = () => {
     setIsLoading(true);
     const data = await fetchAssets(zero_addr());
     var others_assets = []
-    data.map((asset) => {
+    data.map((asset, index) => {
       if (asset.owner !== address)
         others_assets.push(asset)
     })
