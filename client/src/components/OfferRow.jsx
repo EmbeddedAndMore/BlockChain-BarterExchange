@@ -12,9 +12,20 @@ const OfferRow = ({ offer }) => {
 
     const { connect, address, acceptExchange, requestForWithdraw } = useStateContext();
     const { otherAsset, setOtherAsset, ownAsset, setOwnAsset } = useContext(OfferContext);
+    const [isLoading, setIsLoading] = useState(false);
 
+    const withdrawExchange = async (eId) => {
+        setIsLoading(true);
+        await requestForWithdraw(eId)
+        setIsLoading(false);
+    };
 
-    console.log(`offer row. ${offer} ${address}`)
+    const accepExchangeRequest = async (eId) => {
+        setIsLoading(true);
+        await acceptExchange(eId)
+        setIsLoading(false);
+    };
+
 
 
     return (
@@ -47,7 +58,7 @@ const OfferRow = ({ offer }) => {
                                     title="Withdraw"
                                     styles={address ? 'bg-[#ff0000] text-[12px] leading-[20px] min-h-[25px]' : ''}
                                     handleClick={() => {
-
+                                        requestForWithdraw(offer.id)
                                     }}
                                 />
                             </div>
@@ -59,7 +70,7 @@ const OfferRow = ({ offer }) => {
                                         title="Accept"
                                         styles={address ? 'bg-[#1dc071] text-[12px] leading-[20px] min-h-[25px]' : ''}
                                         handleClick={() => {
-
+                                            accepExchangeRequest(offer.id)
                                         }}
                                     />
                                 </div>
@@ -69,7 +80,7 @@ const OfferRow = ({ offer }) => {
                                         title="Withdraw"
                                         styles={address ? 'bg-[#ff0000] text-[12px] leading-[20px] min-h-[25px]' : ''}
                                         handleClick={() => {
-
+                                            requestForWithdraw(offer.id)
                                         }}
                                     />
                                 </div>

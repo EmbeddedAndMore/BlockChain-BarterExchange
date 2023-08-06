@@ -59,9 +59,9 @@ export const StateContextProvider = ({ children }) => {
         ],
       });
 
-      console.log("confirmExchange call success", data)
+      console.log("Exchange accepted succesfully: ", data)
     } catch (error) {
-      console.log("confirmExchange call failure", error)
+      console.log("Exchange failed: ", error)
     }
   }
 
