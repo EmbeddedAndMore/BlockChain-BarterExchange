@@ -1,8 +1,8 @@
-# CharityFund
+# BarterExchange
 
 ## Table of Contents
 
-- [CharityFund](#charityfund)
+- [BarterExchange](#BarterExchange)
   - [Table of Contents](#table-of-contents)
   - [Tech Stack](#tech-stack)
     - [Install dependencies](#install-dependencies)
