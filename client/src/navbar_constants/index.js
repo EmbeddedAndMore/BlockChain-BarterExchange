@@ -1,4 +1,4 @@
-import { createAsset, dashboard, logout, payment, profile, withdraw, offer } from '../assets';
+import { createAsset, dashboard, logout, profile, offer } from '../assets';
 
 export const navlinks = [
   {

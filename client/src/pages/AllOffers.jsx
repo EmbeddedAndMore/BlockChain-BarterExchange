@@ -3,10 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from "uuid";
 
 import { useStateContext } from '../context';
-import { logo, menu, search, thirdweb } from '../assets';
-import { navlinks } from '../constants';
 import { OfferContext } from "../App"
-import { OfferRow, Loader } from '../components'
+import { OfferRow, Progress } from '../page_components'
 
 
 const AllOffers = () => {
@@ -56,7 +54,7 @@ const AllOffers = () => {
 
     return (
         <div>
-            {isLoading && <Loader />}
+            {isLoading && <Progress />}
 
             {offers.length == 0 &&
                 <div className="flex justify-center items-center bg-[#1c1c24] rounded-[20px]  py-4 mt-12">

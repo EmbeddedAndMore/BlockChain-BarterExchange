@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-
 import { logo, sun } from '../assets';
-import { navlinks } from '../constants';
-
+import { navlinks } from '../navbar_constants';
 import { useDisconnect } from "@thirdweb-dev/react";
 
 

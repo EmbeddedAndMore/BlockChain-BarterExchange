@@ -4,14 +4,12 @@ import { v4 as uuidv4 } from "uuid";
 import AssetCard from './AssetCard';
 import { loader } from '../assets';
 import { OfferContext } from "../App"
-import { SelectableGroup, createSelectable } from 'react-selectable-fast'
-import { useStateContext } from '../context'
 
 
 const DisplayAssets = ({ title, isLoading, assets, from }) => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(null);
-  const { otherAsset, setOtherAsset, ownAsset, setOwnAsset } = useContext(OfferContext);
+  const { otherAsset, setOtherAsset, ownAsset, setOwnAsset, searchText, setSearchText } = useContext(OfferContext);
 
 
 
@@ -36,7 +34,15 @@ const DisplayAssets = ({ title, isLoading, assets, from }) => {
 
   }
 
+  function get_searched_assets(searchInput){
+    return  assets.filter((asset) => {
+          return asset.asset.title.toLowerCase().includes(searchInput.toLowerCase());
+      });
+  }
+
   useMemo(() => {
+    // var searched_assets = get_searched_assets(searchText)
+    // console.log(searched_assets)
     assets.map((asset) => {
       if (selected === null)
         return;
@@ -47,7 +53,7 @@ const DisplayAssets = ({ title, isLoading, assets, from }) => {
       }
 
     })
-  }, [selected]);
+  }, [selected, searchText]);
 
 
 
@@ -66,7 +72,7 @@ const DisplayAssets = ({ title, isLoading, assets, from }) => {
           </p>
         )}
         {!isLoading && assets.length > 0 &&
-          assets.map((asset) =>
+          get_searched_assets(searchText).map((asset) =>
             <AssetCard
               key={uuidv4()}
               {...asset.asset}

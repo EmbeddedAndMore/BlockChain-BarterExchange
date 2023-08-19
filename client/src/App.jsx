@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Sidebar, Navbar, Footer } from './components';
+import { Sidebar, Navbar, Footer } from './page_components';
 import { AssetDetails, CreateAsset, Home, Profile, AllOffers } from './pages';
 import { useStateContext } from './context'
 
@@ -12,11 +12,13 @@ const App = () => {
 
   const [otherAsset, setOtherAsset] = useState(null);
   const [ownAsset, setOwnAsset] = useState(null);
+  const [searchText,setSearchText] = useState("")
   const { address, contract, fetchAssets } = useStateContext();
   useEffect(() => {
     if (typeof address === 'undefined') {
       setOwnAsset(null)
       setOtherAsset(null)
+      setSearchText("")
       console.log("set assets to null")
     }
     return () => { };
@@ -31,7 +33,7 @@ const App = () => {
       </div>
 
       {/* <div className=""> */}
-      <OfferContext.Provider value={{ otherAsset: otherAsset, setOtherAsset: setOtherAsset, ownAsset: ownAsset, setOwnAsset: setOwnAsset }}>
+      <OfferContext.Provider value={{ otherAsset: otherAsset, setOtherAsset: setOtherAsset, ownAsset: ownAsset, setOwnAsset: setOwnAsset, searchText:searchText,setSearchText:setSearchText }}>
         <div className="flex-1 max-sm:w-full sm:mr-5">
           <Navbar />
           <div>

@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ethers } from 'ethers';
 
 import { useStateContext } from '../context';
-import { money } from '../assets';
-import { CustomButton, FormField, Loader } from '../components';
+import { CustomButton, Field, Progress } from '../page_components';
 import { checkIfImage } from '../utils';
 
 const CreateAsset = () => {
@@ -41,21 +39,21 @@ const CreateAsset = () => {
 
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
-      {isLoading && <Loader />}
+      {isLoading && <Progress />}
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">Create an Asset</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full mt-[65px] flex flex-col gap-[30px]">
         <div className="flex flex-wrap gap-[40px]">
-          <FormField
+          <Field
             labelName="Asset name *"
             placeholder="Bluetooth speacker"
             inputType="text"
             value={form.name}
             handleChange={(e) => handleFormFieldChange('name', e)}
           />
-          <FormField
+          <Field
             labelName="Asset Title *"
             placeholder="Best bluetooth speacker possible"
             inputType="text"
@@ -64,7 +62,7 @@ const CreateAsset = () => {
           />
         </div>
 
-        <FormField
+        <Field
           labelName="Description *"
           placeholder="Write your description"
           isTextArea
@@ -72,7 +70,7 @@ const CreateAsset = () => {
           handleChange={(e) => handleFormFieldChange('description', e)}
         />
 
-        <FormField
+        <Field
           labelName="Asset image *"
           placeholder="Place image URL of your asset"
           inputType="url"

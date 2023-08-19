@@ -1,16 +1,11 @@
 import React, { useState, useContext, useMemo } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
 
 import { useStateContext } from '../context';
-import { CustomButton, Loader } from './';
-import { logo, menu, search, thirdweb } from '../assets';
-import { navlinks } from '../constants';
-import { OfferContext } from "../App"
+import { CustomButton} from './';
 
 
 const OfferRow = ({ offer, handleWithdraw, handleAccept }) => {
     const { connect, address } = useStateContext();
-    const { otherAsset, setOtherAsset, ownAsset, setOwnAsset } = useContext(OfferContext);
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -35,9 +30,6 @@ const OfferRow = ({ offer, handleWithdraw, handleAccept }) => {
                         <span className='font-epilogue font-bold text-[16px] text-white text-center truncate ml-1'>in exchange for: </span>
                         <span className='font-epilogue text-[14px] text-white text-center truncate ml-1'>{offer.requestedAssetName}</span>
                     </div>
-                    {/* <div className='grid grid-cols-2'> */}
-
-
                     {
                         offer.from === address ?
                             (<div className='grid grid-cols-2'>
@@ -48,7 +40,6 @@ const OfferRow = ({ offer, handleWithdraw, handleAccept }) => {
                                         title="Withdraw"
                                         styles={address ? 'bg-[#ff0000] text-[12px] leading-[20px] min-h-[25px]' : ''}
                                         handleClick={() => {
-                                            // withdrawExchange(offer.id);
                                             handleWithdraw();
                                         }}
                                     />
@@ -61,7 +52,6 @@ const OfferRow = ({ offer, handleWithdraw, handleAccept }) => {
                                             title="Accept"
                                             styles={address ? 'bg-[#1dc071] text-[12px] leading-[20px] min-h-[25px]' : ''}
                                             handleClick={() => {
-                                                // accepExchangeRequest(offer.id);
                                                 handleAccept();
                                             }}
                                         />
@@ -72,7 +62,6 @@ const OfferRow = ({ offer, handleWithdraw, handleAccept }) => {
                                             title="Withdraw"
                                             styles={address ? 'bg-[#ff0000] text-[12px] leading-[20px] min-h-[25px]' : ''}
                                             handleClick={() => {
-                                                // withdrawExchange(offer.id);
                                                 handleWithdraw();
                                             }}
                                         />
@@ -80,9 +69,6 @@ const OfferRow = ({ offer, handleWithdraw, handleAccept }) => {
                                 </div>
                             )
                     }
-
-
-                    {/* </div> */}
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { zero_addr } from '../utils'
 
-import { DisplayAssets } from '../components';
+import { DisplayAssets } from '../page_components';
 import { useStateContext } from '../context'
 
 

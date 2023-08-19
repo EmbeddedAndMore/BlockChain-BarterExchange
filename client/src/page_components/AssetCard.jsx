@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { tagType, thirdweb } from '../assets';
-import { daysLeft } from '../utils';
+import {thirdweb } from '../assets';
 
 const AssetCard = ({ owner, name, title, description, image, handleClick, handleSelect, disabled }) => {
   // const remainingDays = daysLeft(deadline);

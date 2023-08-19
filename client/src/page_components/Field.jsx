@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FormField = ({ labelName, placeholder, inputType, isTextArea, value, handleChange }) => {
+const Field = ({ labelName, placeholder, inputType, isTextArea, value, handleChange }) => {
   return (
     <label className="flex-1 w-full flex flex-col">
       {labelName && (
@@ -30,4 +30,4 @@ const FormField = ({ labelName, placeholder, inputType, isTextArea, value, handl
   )
 }
 
-export default FormField
+export default Field
